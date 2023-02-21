@@ -25,7 +25,7 @@ command `xsel`. You can install it via your package manager.
 
 ## Usage
 
-    $ go run ./cmd/urlshortener
+    $ urlshortener
     Long URL: https://www.reddit.com
 
     https://bit.ly/3KmRGIy
@@ -50,7 +50,7 @@ your audience.
 Screenshot of the local HTML page:
 
 <div align="center">
-  <img width="80%" src="assets/screenshot.png" alt="view demo on YouTube">
+  <img width="80%" src="assets/screenshot.png" alt="screenshot" style="border: 1px solid black;">
 </div>
 
 The characters in the funny ID are also pronounced to
