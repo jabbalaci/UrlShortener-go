@@ -1,30 +1,27 @@
 package jweb
 
-/*
-	based on https://github.com/0x434d53/openinbrowser/blob/master/openinbrowser.go
-*/
-
 import (
+	"fmt"
 	"log"
 	"os/exec"
 	"runtime"
 )
 
-// OpenInBrowser opens the specified file in the default browser.
-func OpenInBrowser(path string) error {
-	var args []string
+// based on https://terminalroot.com/how-to-open-url-in-default-browser-in-go-python-ruby-and-rust/
+func OpenInBrowser(url string) error {
+	var err error
 	switch runtime.GOOS {
-	case "darwin":
-		args = []string{"open", path}
+	case "linux":
+		err = exec.Command("xdg-open", url).Start()
 	case "windows":
-		args = []string{"cmd", "/c", "start", path}
+		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+	case "darwin":
+		err = exec.Command("open", url).Start()
 	default:
-		args = []string{"xdg-open", path}
+		err = fmt.Errorf("unsupported platform")
 	}
-	cmd := exec.Command(args[0], args[1:]...)
-	err := cmd.Run()
 	if err != nil {
-		log.Printf("openinbrowser: %v\n", err)
+		log.Printf("OpenInBrowser: %v\n", err)
 		return err
 	}
 	// else

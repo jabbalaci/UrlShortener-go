@@ -55,8 +55,3 @@ Screenshot of the local HTML page:
 
 The characters in the funny ID are also pronounced to
 avoid confusion between similar characters like `o`, `O`, `0`, etc.
-
-## Known Issues
-
-Under Linux, it works fine. Under Windows, opening the generated local
-HTML file is problematic. I'll work on it.
