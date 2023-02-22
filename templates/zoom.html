@@ -14,7 +14,8 @@
 
 		h1 {
 			margin-top: 8%;
-			margin-bottom: 10px; /* add some bottom margin */
+			margin-bottom: 10px;
+			/* add some bottom margin */
 			font-size: 9vw;
 			font-family: 'Oxygen Mono', monospace;
 			text-align: center;
@@ -31,16 +32,46 @@
 			src: url('https://fonts.googleapis.com/css2?family=Oxygen Mono&display=swap');
 		}
 
+		/* Center the container */
+		#container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 80vh;
+		}
+
+		/* Style the row with two columns */
+		.row {
+			display: flex;
+			flex-direction: row;
+		}
+
+		/* Style the left column */
+		.left-column {
+			flex: 1;
+		}
+
 	</style>
 </head>
 
 <body>
-	<h1>{{.Text}}</h1>
-	<ul>
-		{{range $line := .Lines }}
-		<li>{{$line}}</li>
-		{{end}}
-	</ul>
+	<div id="container">
+		<div>
+			<h1>{{.Text}}</h1>
+			<div class="row">
+				<div class="left-column">
+					<ul>
+						{{range $line := .Lines }}
+						<li>{{$line}}</li>
+						{{end}}
+					</ul>
+				</div>
+				<div>
+					<img src="{{.Png}}" alt="QR code">
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>

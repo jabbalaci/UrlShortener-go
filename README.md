@@ -9,6 +9,8 @@ You can use it in interactive mode only.
 
     $ go install github.com/jabbalaci/UrlShortener-go/cmd/urlshortener@latest
 
+It was tested under Linux and Windows.
+
 ## Pre-requisite
 
 For this to work, you need an access token from bit.ly. Don't worry, it's free.
@@ -26,17 +28,17 @@ command `xsel`. You can install it via your package manager.
 ## Usage
 
     $ urlshortener
-    Long URL: https://www.reddit.com
+    Long URL: https://github.com/jabbalaci/UrlShortener-go
 
-    https://bit.ly/3KmRGIy
+    https://bit.ly/41dBYWh
 
-    # expanded from shortened URL: https://www.reddit.com (matches)
+    # expanded from shortened URL: https://github.com/jabbalaci/UrlShortener-go (matches)
 
     Copy shortened URL to clipboard [Yn]? y
     # copied ✓
     Zoom into this short URL [yN]? y
     # yes ✓
-    # written to /tmp/urlshortener-2368855934.html
+    # written to /tmp/urlshortener-1795634551.html
 
 Provide the long URL, and it'll give you back the shortened bit.ly URL.
 
@@ -55,3 +57,5 @@ Screenshot of the local HTML page:
 
 The characters in the funny ID are also pronounced to
 avoid confusion between similar characters like `o`, `O`, `0`, etc.
+
+In addition, there's also a QR code pointing on your URL.

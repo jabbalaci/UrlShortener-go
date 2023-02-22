@@ -3,7 +3,9 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"text/template"
 
@@ -14,6 +16,7 @@ import (
 	"github.com/jabbalaci/UrlShortener-go/lib/jweb"
 	"github.com/jabbalaci/UrlShortener-go/lib/pronounce"
 	"github.com/jabbalaci/UrlShortener-go/templates"
+	qrcode "github.com/skip2/go-qrcode"
 )
 
 var bold = color.New(color.Bold).PrintlnFunc()
@@ -42,6 +45,16 @@ func copy_to_clipboard(text string) {
 	}
 }
 
+func createQrCode(basename, url string) (string, error) {
+	pngFile := strings.TrimSuffix(basename, ".html") + ".png"
+	err := qrcode.WriteFile(url, qrcode.Medium, 512, pngFile) // 512x512 pixels
+	if err != nil {
+		log.Printf("createQrCode: %v\n", err)
+		return "", err
+	}
+	return pngFile, nil
+}
+
 func zoom_into(url string) {
 	url = strings.TrimPrefix(url, "https://")
 	f, err := os.CreateTemp(os.TempDir(), "urlshortener-*.html")
@@ -53,13 +66,15 @@ func zoom_into(url string) {
 	type Context struct {
 		Text  string
 		Lines []string
+		Png   string
 	}
 
 	id := strings.Split(url, "/")[1]
 	lines := pronounce.Say(id)
+	image_name, _ := createQrCode(f.Name(), url)
 
 	tmpl := template.Must(template.New("html").Parse(templates.ZOOM_HTML))
-	context := Context{url, lines}
+	context := Context{url, lines, filepath.Base(image_name)}
 
 	var buf bytes.Buffer
 	tmpl.Execute(&buf, context)
