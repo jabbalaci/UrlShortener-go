@@ -1,15 +1,15 @@
 # URL Shortener (Go)
 
 A URL shortener command-line app. for [bit.ly](https://bitly.com/).
-Implemented in Go, using bit.ly's API v4.
+Implemented in Go, using [bit.ly's API v4](https://dev.bitly.com/api-reference/).
 
 You can use it in interactive mode only.
 
 ## Installation
 
-    $ go install github.com/jabbalaci/go-urlshortener/cmd/urlshortener@latest
+    $ go install github.com/jabbalaci/UrlShortener-go/cmd/urlshortener@latest
 
-## Pre-requisites
+## Pre-requisite
 
 For this to work, you need an access token from bit.ly. Don't worry, it's free.
 After registration you can generate one for yourself. Then, add it as an

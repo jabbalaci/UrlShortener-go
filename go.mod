@@ -1,4 +1,4 @@
-module github.com/jabbalaci/go-urlshortener
+module github.com/jabbalaci/UrlShortener-go
 
 go 1.20
 
@@ -9,7 +9,8 @@ require (
 )
 
 require (
+	github.com/chzyer/readline v1.5.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
-	golang.org/x/sys v0.3.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
 )

@@ -6,9 +6,9 @@ import (
 	"os"
 	"text/template"
 
-	"github.com/jabbalaci/go-urlshortener/lib/jweb"
-	"github.com/jabbalaci/go-urlshortener/lib/pronounce"
-	"github.com/jabbalaci/go-urlshortener/templates"
+	"github.com/jabbalaci/UrlShortener-go/lib/jweb"
+	"github.com/jabbalaci/UrlShortener-go/lib/pronounce"
+	"github.com/jabbalaci/UrlShortener-go/templates"
 )
 
 func main() {

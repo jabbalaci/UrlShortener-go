@@ -9,11 +9,11 @@ import (
 
 	"github.com/atotto/clipboard"
 	"github.com/fatih/color"
-	"github.com/jabbalaci/go-urlshortener/lib/bitly"
-	"github.com/jabbalaci/go-urlshortener/lib/jconsole"
-	"github.com/jabbalaci/go-urlshortener/lib/jweb"
-	"github.com/jabbalaci/go-urlshortener/lib/pronounce"
-	"github.com/jabbalaci/go-urlshortener/templates"
+	"github.com/jabbalaci/UrlShortener-go/lib/bitly"
+	"github.com/jabbalaci/UrlShortener-go/lib/jconsole/fancy"
+	"github.com/jabbalaci/UrlShortener-go/lib/jweb"
+	"github.com/jabbalaci/UrlShortener-go/lib/pronounce"
+	"github.com/jabbalaci/UrlShortener-go/templates"
 )
 
 var bold = color.New(color.Bold).PrintlnFunc()
@@ -31,7 +31,7 @@ func check_api_key() {
 }
 
 func copy_to_clipboard(text string) {
-	response := jconsole.Input("Copy shortened URL to clipboard [Yn]? ")
+	response := fancy.InputLinuxOnly("Copy shortened URL to clipboard [Yn]? ")
 	if response == "y" || response == "Y" || response == "" {
 		clipboard.WriteAll(text)
 		fmt.Print("# copied ")
@@ -71,7 +71,7 @@ func zoom_into(url string) {
 }
 
 func zoom(url string) {
-	response := jconsole.Input("Zoom into this short URL [yN]? ")
+	response := fancy.InputLinuxOnly("Zoom into this short URL [yN]? ")
 	if response == "y" || response == "Y" {
 		fmt.Print("# yes ")
 		green(OK)
@@ -83,9 +83,18 @@ func zoom(url string) {
 }
 
 func main() {
+	arg := ""
+	if len(os.Args) > 1 {
+		arg = os.Args[1]
+	}
+	if arg == "-h" || arg == "--help" {
+		print_help()
+		os.Exit(0)
+	}
+
 	check_api_key() // may exit
 
-	original_url := jconsole.Input("Long URL: ")
+	original_url := fancy.InputLinuxOnly("Long URL: ")
 
 	short_url, err := bitly.Shorten(original_url)
 	if err != nil {

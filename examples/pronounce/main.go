@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/jabbalaci/go-urlshortener/lib/pronounce"
+	"github.com/jabbalaci/UrlShortener-go/lib/pronounce"
 )
 
 func main() {
