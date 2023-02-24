@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -97,6 +98,19 @@ func zoom(url string) {
 	}
 }
 
+func match(original_url, expanded_url string) bool {
+	if original_url == expanded_url {
+		return true
+	}
+	// else
+	decoded_url, err := url.QueryUnescape(original_url)
+	if err != nil {
+		return false
+	}
+	decoded_url = strings.ReplaceAll(decoded_url, " ", "+")
+	return decoded_url == expanded_url
+}
+
 func main() {
 	arg := ""
 	if len(os.Args) > 1 {
@@ -120,24 +134,24 @@ func main() {
 	fmt.Println()
 	bold(short_url)
 
-	long_url, err := bitly.Expand(short_url)
+	expanded_url, err := bitly.Expand(short_url)
 	if err != nil {
 		fmt.Println("Error: the URL couldn't be expanded.")
 		os.Exit(1)
 	}
 	// else
-	long_url = strings.TrimSuffix(long_url, "/")
+	expanded_url = strings.TrimSuffix(expanded_url, "/")
 	fmt.Println()
-	fmt.Printf("# expanded from shortened URL: %v", long_url)
+	fmt.Printf("# expanded from shortened URL: %v", expanded_url)
 
-	if original_url == long_url {
+	if match(original_url, expanded_url) {
 		green(" (matches)")
 	} else {
 		red(" (does NOT match)")
 		os.Exit(1)
 	}
 
-	// if matches
+	// if they match
 	fmt.Println()
 	copy_to_clipboard(short_url)
 	zoom(short_url)
