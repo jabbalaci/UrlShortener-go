@@ -100,7 +100,14 @@ func zoom(url string) {
 	}
 }
 
-func match(original_url, expanded_url string) bool {
+func fuzzy_match(original_url, expanded_url string) bool {
+	if strings.HasSuffix(original_url, "/") && !strings.HasSuffix(expanded_url, "/") {
+		expanded_url += "/"
+	}
+	if !strings.HasSuffix(original_url, "/") && strings.HasSuffix(expanded_url, "/") {
+		original_url += "/"
+	}
+	//
 	if original_url == expanded_url {
 		return true
 	}
@@ -125,7 +132,7 @@ func main() {
 
 	check_api_key() // may exit
 
-	original_url := fancy.InputLinuxOnly("Long URL: ")
+	original_url := strings.TrimSpace(fancy.InputLinuxOnly("Long URL: "))
 
 	short_url, err := bitly.Shorten(original_url)
 	if err != nil {
@@ -142,11 +149,10 @@ func main() {
 		os.Exit(1)
 	}
 	// else
-	expanded_url = strings.TrimSuffix(expanded_url, "/")
 	fmt.Println()
 	fmt.Printf("# expanded from shortened URL: %v", expanded_url)
 
-	if match(original_url, expanded_url) {
+	if fuzzy_match(original_url, expanded_url) {
 		green(" (matches)")
 	} else {
 		red(" (does NOT match)")
