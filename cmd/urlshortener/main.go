@@ -27,6 +27,8 @@ var red = color.New(color.Bold, color.FgRed).PrintlnFunc()
 const OK = "✓"
 const NOT_OK = "✗"
 
+const QR_CODE_WIDTH = 512
+
 func check_api_key() {
 	if os.Getenv("BITLY_ACCESS_TOKEN") == "" {
 		fmt.Println("Please set the env. variable BITLY_ACCESS_TOKEN")
@@ -48,7 +50,7 @@ func copy_to_clipboard(text string) {
 
 func createQrCode(basename, url string) (string, error) {
 	pngFile := strings.TrimSuffix(basename, ".html") + ".png"
-	err := qrcode.WriteFile(url, qrcode.Medium, 512, pngFile) // 512x512 pixels
+	err := qrcode.WriteFile(url, qrcode.Medium, QR_CODE_WIDTH, pngFile)
 	if err != nil {
 		log.Printf("createQrCode: %v\n", err)
 		return "", err
